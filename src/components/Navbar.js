@@ -47,18 +47,18 @@ const Navbar = () => {
             </style>
             <nav>
                 <ul>
-                    <li>
-                        <Link className={`linktag ${pathname === '/' ? 'active' : ''}`} href='/'>Home</Link>
-                    </li>
-                    <li>
-                        <Link className={`linktag ${pathname === '/about' ? 'active' : ''}`} href='/about'>About Us</Link>
-                    </li>
-                    <li>
-                        <Link className={`linktag ${pathname === '/blog' ? 'active' : ''}`} href='/blog'>Blog</Link>
-                    </li>
-                    <li>
-                        <Link className={`linktag ${pathname === '/contact' ? 'active' : ''}`} href='/contact'>Contact</Link>
-                    </li>
+                    <Link className={`linktag ${pathname === '/' ? 'active' : ''}`} href='/'>
+                        <li>Home</li>
+                    </Link>
+                    <Link className={`linktag ${pathname === '/about' ? 'active' : ''}`} href='/about'>
+                        <li>About Us</li>
+                    </Link>
+                    <Link className={`linktag ${pathname === '/blog' ? 'active' : ''}`} href='/blog'>
+                        <li>Blog</li>
+                    </Link>
+                    <Link className={`linktag ${pathname === '/contact' ? 'active' : ''}`} href='/contact'>
+                        <li>Contact</li>
+                    </Link>
                 </ul>
             </nav>
         </>

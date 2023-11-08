@@ -76,26 +76,28 @@
   .blog-text h2{
     margin:15px 0px;
   }
-
+  /* .blog-text p{
+    text-align: justify;
+  } */
   .blog-item:nth-child(even){
     flex-direction: column;
   }
   .blog-item:nth-child(even) .imgtag{
     border-radius: 10px;
   }
-
 }
+
 @media screen and (max-width: 460px) {
    .blog-img .imgtag{
     width: 80%;
   }
 }
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 400px) {
   .blog-img .imgtag{
    width: 65%;
  }
 }
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 320px) {
   .blog-img .imgtag{
    width: 50%;
  }

@@ -1,8 +1,18 @@
 // import Image from 'next/image'
 // import { Inter } from 'next/font/google'
 // const inter = Inter({ subsets: ['latin'] })
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 export default function Home() {
+  const [blogs, setblogs] = useState([])
+  useEffect(()=> {
+    fetch('http://localhost:3000/api/blogs').then((a)=>{
+     return a.json()
+    }).then((parsed)=>{
+     // console.log(parsed)
+     setblogs(parsed)
+    })
+}, [])
   return (
     <>
       <div className={`homecontainer`}>
@@ -13,51 +23,17 @@ export default function Home() {
           </div>
         </div>
         <div className="blog-container">
-          <div className="blog-item">
-            <div className="blog-img">
-         <img src="/img-1.jpg" alt="img" className='imgtag'/>
+             {blogs.map((blogpost)=>{
+              return <div className="blog-item">
+              <div className="blog-img">
+           <img src={`${blogpost.img}.jpg`} alt="img" className='imgtag'/>
+              </div>
+              <div className="blog-text">
+                <h2><Link className='linktag' href='#'> {blogpost.title} </Link></h2>
+                <p style={{textAlign:'justify'}}><Link className='linktag' href='#'> {blogpost.content.substr(0, 250)}....Read more </Link></p>
+              </div>
             </div>
-            <div className="blog-text">
-              <h2><Link className='linktag' href='/'>Blog Title</Link></h2>
-              <p><Link className='linktag' href='/'>Blog Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I g Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I can assist you more effectivelyvg Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I can assist you more effectively can assist you more effectively.</Link></p>
-            </div>
-          </div>
-          <div className="blog-item">
-            <div className="blog-img">
-         <img src="/img-2.jpg" alt="img" className='imgtag'/>
-            </div>
-            <div className="blog-text">
-              <h2><Link className='linktag' href='/'>Blog Title</Link></h2>
-              <p><Link className='linktag' href='/'>Blogore details so I can assist you more effectively can assist you more effectively.</Link></p>
-            </div>
-          </div>
-          <div className="blog-item">
-            <div className="blog-img">
-         <img src="/img-3.jpg" alt="img" className='imgtag'/>
-            </div>
-            <div className="blog-text">
-              <h2><Link className='linktag' href='/'>Blog Title</Link></h2>
-              <p><Link className='linktag' href='/'>Blog Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I g Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I can assist you more effectivelyvg Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I can assist you more effectively can assist you more effectively.</Link></p>
-            </div>
-          </div>
-          <div className="blog-item">
-            <div className="blog-img">
-         <img src="/img-4.jpg" alt="img" className='imgtag'/>
-            </div>
-            <div className="blog-text">
-              <h2><Link className='linktag' href='/'>Blog Title</Link></h2>
-              <p><Link className='linktag' href='/'>Blog Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I g Description : Of course, I can help you with both TypeScript and JavaScript codassist you more effectively can assist you more effectively.</Link></p>
-            </div>
-          </div>
-          <div className="blog-item">
-            <div className="blog-img">
-         <img  src="/img-5.jpg" alt="img" className='imgtag'/>
-            </div>
-            <div className="blog-text">
-              <h2><Link className='linktag' href='/'>Blog Title</Link></h2>
-              <p><Link className='linktag' href='/'>Blog Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I g Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I can assist you more effectivelyvg Description : Of course, I can help you with both TypeScript and JavaScript code. What specific code or task would you like assistance with? Please provide more details so I can assist you more effectively can assist you more effectively.</Link></p>
-            </div>
-          </div>
+             })}
         </div>
       </div>
     </>
