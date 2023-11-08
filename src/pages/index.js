@@ -1,20 +1,15 @@
 // import Image from 'next/image'
 // import { Inter } from 'next/font/google'
 // const inter = Inter({ subsets: ['latin'] })
-import Head from 'next/head';
 import Link from 'next/link';
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Coder Hunt</title>
-        <meta name="description" content="Your custom description here." />
-      </Head>
       <div className={`homecontainer`}>
         <div className="blog-heading">
           <div className="blog-title">
             <h1>Coder Hunt</h1>
-            <p>As of my last knowledge update in January 2022, I don't have specific information about a platform.</p>
+            <p>latest blog is here</p>
           </div>
         </div>
         <div className="blog-container">

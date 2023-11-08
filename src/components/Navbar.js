@@ -1,6 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 const Navbar = () => {
+    const pathname = usePathname()
+
     return (
         <>
             <style jsx>
@@ -39,21 +42,22 @@ const Navbar = () => {
                                 background-color: antiquewhite;
                                 border:2px solid rgb(241, 148, 26);
                             }
+                            
           `}
             </style>
             <nav>
                 <ul>
                     <li>
-                        <Link className='linktag' href='/'>Home</Link>
+                        <Link className={`linktag ${pathname === '/' ? 'active' : ''}`} href='/'>Home</Link>
                     </li>
                     <li>
-                        <Link className='linktag' href='/about'>About Us</Link>
+                        <Link className={`linktag ${pathname === '/about' ? 'active' : ''}`} href='/about'>About Us</Link>
                     </li>
                     <li>
-                        <Link className='linktag' href='/blog'>Blog</Link>
+                        <Link className={`linktag ${pathname === '/blog' ? 'active' : ''}`} href='/blog'>Blog</Link>
                     </li>
                     <li>
-                        <Link className='linktag' href='/contact'>Contact</Link>
+                        <Link className={`linktag ${pathname === '/contact' ? 'active' : ''}`} href='/contact'>Contact</Link>
                     </li>
                 </ul>
             </nav>
