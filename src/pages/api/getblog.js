@@ -1,4 +1,4 @@
-//http://localhost:3000/api/getblog
+
 
 import fs from 'fs';
 export default function handler(req, res) {

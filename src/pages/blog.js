@@ -1,8 +1,9 @@
-import React from 'react'
-import { useState } from 'react';
+import React , {useState} from 'react'
 import Link from 'next/link';
+import fs from 'fs';
+
 const blog = (props) => {
-  const [blogs, setblogs] = useState(props.data)
+  const [blogs, setblogs] = useState(props.allblogs)
   return (
     <>
       <style jsx>
@@ -28,40 +29,43 @@ const blog = (props) => {
         })}
 
       </div>
-      {/* <div className="blog-container">
-        {blogs.map((blogpost) => {
-          return <div className='blog-item' key={blogpost.slug}>
-            <Link className=' linktag' href={`blogpost/${blogpost.slug}`}>
-              <div className="blog-img">
-                <img src={`${blogpost.img}.jpg`} alt="img" className="imgtag" />
-              </div>
-              <div className="blog-text">
-                   <h2>{blogpost.title}</h2>
-                   <p>{blogpost.content.substr(0, 150)}.......Read more</p>
-              </div>
-            </Link>
-          </div>
-        })}
-
-      </div> */}
-
     </>
   )
 }
 
-export async function getServerSideProps(context) {
-  try {
-    const res = await fetch('http://localhost:3000/api/blogs');
-    if (!res.ok) {
-      throw new Error(`API request failed with status: ${res.status}`);
-    }
-    const data = await res.json();
-    return { props: { data } };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return { props: { data: [] } }; // Handle the error as needed
-  }
+
+export async function getStaticProps(context) {
+  let data = await fs.promises.readdir('blogdata');
+      // console.log(data)
+      let myfile;
+      let allblogs = [];
+      for(let i = 0; i< data.length; i++){
+        const item = data[i];
+        // console.log(item)
+        myfile = await fs.promises.readFile(('blogdata/' +item), 'utf-8');
+        // console.log( typeof myfile)
+
+        allblogs.push(JSON.parse(myfile))
+      }
+  return { props: { allblogs } };
+
 }
+
+
+
+// export async function getServerSideProps(context) {
+//   try {
+//     const res = await fetch('http://localhost:3000/api/blogs');
+//     if (!res.ok) {
+//       throw new Error(`API request failed with status: ${res.status}`);
+//     }
+//     const data = await res.json();
+//     return { props: { data } };
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     return { props: { data: [] } }; // Handle the error as needed
+//   }
+// }
 
 
 export default blog

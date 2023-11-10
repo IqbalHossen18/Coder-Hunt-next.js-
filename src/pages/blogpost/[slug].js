@@ -1,21 +1,10 @@
 
-// import React, { useRouter } from 'next/router'
 import React from 'react'
+import fs from 'fs';
+
 const slug = (props) => {
 
   const {data} = props;
-
-    // const router = useRouter()
-  // const [blogs, setblogs] = useState(props.data)
-  // useEffect(() => {
-  //   if (!router.isReady) return;
-  //   const { slug } = router.query;
-  //   fetch(`http://localhost:3000/api/getblog?slug=${slug}`).then((a) => {
-  //     return a.json()
-  //   }).then((parsed) => {
-  //     setblogs(parsed)
-  //   })
-  // }, [router.isReady])
 
   return (
     <>
@@ -74,11 +63,11 @@ const slug = (props) => {
       <div className='blogpost'>
         <div className='slug-container'>
           <div className='slug-img'>
-            <img src={`../${data.img}.jpg`} alt='image' className='postimg' />
+            <img src={`../${data && data.img}.jpg`} alt='image' className='postimg' />
           </div>
           <div className='slug-text'>
-            <h2>{data.title}</h2>
-            <p>{data.content}</p>
+            <h2>{data && data.title}</h2>
+            <p>{data && data.content}</p>
           </div>
         </div>
       </div>
@@ -86,32 +75,43 @@ const slug = (props) => {
   )
 }
 
+// This function gets called at build time
+
+export async function getStaticPaths(){
+   return {
+    paths:[
+      {params: {slug:'learn-flask'}},
+      {params: {slug:'learn-javascript'}},
+      {params: {slug:'learn-next.js'}},
+      {params: {slug:'learn-node.js'}},
+      {params: {slug:'learn-react'}},
+    ],
+     fallback: true
+   };
+}
+
+
+export async function getStaticProps(context) {
+  const { slug } = context.params;
+
+    let data = await fs.promises.readFile(`blogdata/${slug}.json`, 'utf-8')
+    return { props: { data: JSON.parse(data) } };
+}
 
 // export async function getServerSideProps(context) {
-//   // console.log(context.query.slug)
-//   const {slug} = context.query;
-//   const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`);
-//   const data = await res.json();
-//   // console.log(data)
- 
-
-//   // Pass data to the page via props
-//   return { props: {data} }
+//   const { slug } = context.query;
+//   try {
+//     const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`);
+//     if (!res.ok) {
+//       throw new Error(`API request failed with status: ${res.status}`);
+//     }
+//     const data = await res.json();
+//     return { props: { data } };
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return { props: { data: null } }; // Handle the error as needed
+//   }
 // }
-export async function getServerSideProps(context) {
-  const { slug } = context.query;
-  try {
-    const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`);
-    if (!res.ok) {
-      throw new Error(`API request failed with status: ${res.status}`);
-    }
-    const data = await res.json();
-    return { props: { data } };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return { props: { data: null } }; // Handle the error as needed
-  }
-}
 
 
 export default slug;

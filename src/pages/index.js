@@ -1,8 +1,9 @@
-
+import fs from 'fs';
 import { useState } from 'react';
 import Link from 'next/link';
+
 export default function Home(props) {
-  const [blogs, setblogs] = useState(props.data)
+  const [blogs, setblogs] = useState(props.allblogs)
 
   return (
     <>
@@ -14,17 +15,17 @@ export default function Home(props) {
           </div>
         </div>
         <div className="blog-container">
-             {blogs.map((blogpost)=>{
-              return <div className="blog-item">
+          {blogs.map((blogpost) => {
+            return <div className="blog-item">
               <div className="blog-img">
-           <img src={`${blogpost.img}.jpg`} alt="img" className='imgtag'/>
+                <img src={`${blogpost.img}.jpg`} alt="img" className='imgtag' />
               </div>
               <div className="blog-text">
-                <h2><Link className='linktag' href='#'> {blogpost.title} </Link></h2>
-                <p style={{textAlign:'justify'}}><Link className='linktag' href='#'> {blogpost.content.substr(0, 250)}....Read more </Link></p>
+                <h2> {blogpost.title} </h2>
+                <p style={{ textAlign: 'justify' }}>{blogpost.content.substr(0, 250)}....Read more </p>
               </div>
             </div>
-             })}
+          })}
         </div>
       </div>
     </>
@@ -32,16 +33,19 @@ export default function Home(props) {
 }
 
 
-export async function getServerSideProps(context) {
-  try {
-    const res = await fetch('http://localhost:3000/api/blogs');
-    if (!res.ok) {
-      throw new Error(`API request failed with status: ${res.status}`);
-    }
-    const data = await res.json();
-    return { props: { data } };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return { props: { data: [] } }; // Handle the error as needed
-  }
+export async function getStaticProps(context) {
+  let data = await fs.promises.readdir('blogdata');
+      // console.log(data)
+      let myfile;
+      let allblogs = [];
+      for(let i = 0; i< data.length; i++){
+        const item = data[i];
+        // console.log(item)
+        myfile = await fs.promises.readFile(('blogdata/' +item), 'utf-8');
+        // console.log( typeof myfile)
+
+        allblogs.push(JSON.parse(myfile))
+      }
+  return { props: { allblogs } };
+
 }
