@@ -1,25 +1,28 @@
 
-import React,  { useRouter} from 'next/router'
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
-const slug = () => {
-  const [blogs, setblogs] = useState([])
-  useEffect(()=> {
-    fetch('http://localhost:3000/api/blogs').then((a)=>{
-     return a.json()
-    }).then((parsed)=>{
-     setblogs(parsed)
-    //  console.log(parsed.length)
-    })
-}, [])
-    const router = useRouter()
-    const {slug} = router.query;
-  return (
-     <>
+// import React, { useRouter } from 'next/router'
+import React from 'react'
+const slug = (props) => {
 
-         <style jsx>
-             {
-                `
+  const {data} = props;
+
+    // const router = useRouter()
+  // const [blogs, setblogs] = useState(props.data)
+  // useEffect(() => {
+  //   if (!router.isReady) return;
+  //   const { slug } = router.query;
+  //   fetch(`http://localhost:3000/api/getblog?slug=${slug}`).then((a) => {
+  //     return a.json()
+  //   }).then((parsed) => {
+  //     setblogs(parsed)
+  //   })
+  // }, [router.isReady])
+
+  return (
+    <>
+
+      <style jsx>
+        {
+          `
                   .blogpost{
                     background-color: aquamarine;
                     width: 100%;
@@ -65,35 +68,50 @@ const slug = () => {
                   width:100%;
                   height:100%;
               }
-              `                        
-             }
-         </style>
-         <div className='blogpost'>
-               {blogs.map((post)=>{
-                return  <div className={`${post.slug === slug ? 'slug-container' : ''}`} key={post.slug}>
-                              <div className={`${post.slug === slug ? 'slug-img' : ''}`}>
-                                  <img src={`../${post.slug === slug ? post.img : ''}.jpg`} alt={`${post.slug === slug ? 'image' : ''}`} className={`${post.slug === slug ? 'postimg' : ''}`}/>
-                              </div>
-                              <div className={`${post.slug === slug ? 'slug-text' : ''}`}>
-                                  <h2>{post.slug === slug ? post.title : ''}</h2>
-                                  <p> {post.slug === slug ? post.content : ''}</p>
-                              </div>
-                        </div>
-               })}
-              
-
-
-              
-              {/* { blogs.map((post)=>{
-                return <div key={post.slug}>
-                  <h2>{post.slug === slug ? post.title : ''}</h2>
-                  <p> {post.slug === slug ? post.content : ''}</p>
-                </div>
-                
-              })} */}
-         </div>
-     </>
+              `
+        }
+      </style>
+      <div className='blogpost'>
+        <div className='slug-container'>
+          <div className='slug-img'>
+            <img src={`../${data.img}.jpg`} alt='image' className='postimg' />
+          </div>
+          <div className='slug-text'>
+            <h2>{data.title}</h2>
+            <p>{data.content}</p>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
+
+
+// export async function getServerSideProps(context) {
+//   // console.log(context.query.slug)
+//   const {slug} = context.query;
+//   const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`);
+//   const data = await res.json();
+//   // console.log(data)
+ 
+
+//   // Pass data to the page via props
+//   return { props: {data} }
+// }
+export async function getServerSideProps(context) {
+  const { slug } = context.query;
+  try {
+    const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`);
+    if (!res.ok) {
+      throw new Error(`API request failed with status: ${res.status}`);
+    }
+    const data = await res.json();
+    return { props: { data } };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { props: { data: null } }; // Handle the error as needed
+  }
+}
+
 
 export default slug;

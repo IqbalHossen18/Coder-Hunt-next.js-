@@ -1,18 +1,9 @@
-// import Image from 'next/image'
-// import { Inter } from 'next/font/google'
-// const inter = Inter({ subsets: ['latin'] })
-import { useEffect, useState } from 'react';
+
+import { useState } from 'react';
 import Link from 'next/link';
-export default function Home() {
-  const [blogs, setblogs] = useState([])
-  useEffect(()=> {
-    fetch('http://localhost:3000/api/blogs').then((a)=>{
-     return a.json()
-    }).then((parsed)=>{
-     // console.log(parsed)
-     setblogs(parsed)
-    })
-}, [])
+export default function Home(props) {
+  const [blogs, setblogs] = useState(props.data)
+
   return (
     <>
       <div className={`homecontainer`}>
@@ -38,4 +29,19 @@ export default function Home() {
       </div>
     </>
   )
+}
+
+
+export async function getServerSideProps(context) {
+  try {
+    const res = await fetch('http://localhost:3000/api/blogs');
+    if (!res.ok) {
+      throw new Error(`API request failed with status: ${res.status}`);
+    }
+    const data = await res.json();
+    return { props: { data } };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return { props: { data: [] } }; // Handle the error as needed
+  }
 }
