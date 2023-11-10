@@ -1,8 +1,8 @@
-import React , {useState} from 'react'
+import React, { useState }  from 'react'
 import Link from 'next/link';
 import fs from 'fs';
 
-const blog = (props) => {
+const Blog = (props) => {
   const [blogs, setblogs] = useState(props.allblogs)
   return (
     <>
@@ -17,15 +17,17 @@ const blog = (props) => {
 
       <div className="blog-container">
         {blogs.map((blogpost) => {
-          return <Link href={`blogpost/${blogpost.slug}`} className="blog-item  linktag" key={blogpost.slug}>
+          return (
+            <Link href={`blogpost/${blogpost.slug}`} className="blog-item  linktag" key={blogpost.slug}>
             <div className="blog-img">
-              <img src={`${blogpost.img}.jpg`} alt="img" className='imgtag' />
+              <img src={`/${blogpost.img}.jpg`} alt="img" className='imgtag' />
             </div>
             <div className="blog-text">
               <h2>{blogpost.title}</h2>
               <p>{blogpost.content.substr(0, 150)}.......Read more</p>
             </div>
           </Link>
+          )
         })}
 
       </div>
@@ -53,19 +55,4 @@ export async function getStaticProps(context) {
 
 
 
-// export async function getServerSideProps(context) {
-//   try {
-//     const res = await fetch('http://localhost:3000/api/blogs');
-//     if (!res.ok) {
-//       throw new Error(`API request failed with status: ${res.status}`);
-//     }
-//     const data = await res.json();
-//     return { props: { data } };
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     return { props: { data: [] } }; // Handle the error as needed
-//   }
-// }
-
-
-export default blog
+export default Blog

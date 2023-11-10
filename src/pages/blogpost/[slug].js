@@ -63,7 +63,7 @@ const slug = (props) => {
       <div className='blogpost'>
         <div className='slug-container'>
           <div className='slug-img'>
-            <img src={`../${data && data.img}.jpg`} alt='image' className='postimg' />
+            <img src={`/../${data && data.img}.jpg`} alt='image' className='postimg' />
           </div>
           <div className='slug-text'>
             <h2>{data && data.title}</h2>
@@ -86,7 +86,7 @@ export async function getStaticPaths(){
       {params: {slug:'learn-node.js'}},
       {params: {slug:'learn-react'}},
     ],
-     fallback: true
+     fallback: false
    };
 }
 

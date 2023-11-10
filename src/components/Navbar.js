@@ -1,8 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/router'
+// import { usePathname } from 'next/navigation'
 const Navbar = () => {
-    const pathname = usePathname()
+    const {pathname} = useRouter()
 
     return (
         <>
