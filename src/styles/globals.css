@@ -150,7 +150,17 @@
   color:rgb(0, 0, 0);
   font-weight: bold;
 }
-.active{
-  text-decoration: underline;
-  color:rgb(0, 0, 0);
+
+
+#navbar .navbar-brand{
+  color:rgb(137, 61, 61);
+  font-weight: bold;
+  font-size: 30px;
+}
+#navbar .nav-link{
+  color:rgb(200, 137, 61);
+  font-weight: bold;
+}
+#navbar .active{
+  border-bottom: 2px solid white;
 }
