@@ -1,6 +1,5 @@
 
-import React from 'react'
-import fs from 'fs';
+import React from 'react';
 
 const slug = (props) => {
 
@@ -75,43 +74,19 @@ const slug = (props) => {
   )
 }
 
-// This function gets called at build time
+// api call for one blog by SSR(Server Side Render)
 
-export async function getStaticPaths(){
-   return {
-    paths:[
-      {params: {slug:'learn-flask'}},
-      {params: {slug:'learn-javascript'}},
-      {params: {slug:'learn-next.js'}},
-      {params: {slug:'learn-node.js'}},
-      {params: {slug:'learn-react'}},
-    ],
-     fallback: false
-   };
+export async function getServerSideProps(context){
+    const { slug } = context.query;
+    try {
+      const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+      const data = await res.json() 
+      return { props: { data } };
+    } catch (error) {
+      console.log(error.message)
+    }
+   
 }
-
-
-export async function getStaticProps(context) {
-  const { slug } = context.params;
-
-    let data = await fs.promises.readFile(`blogdata/${slug}.json`, 'utf-8')
-    return { props: { data: JSON.parse(data) } };
-}
-
-// export async function getServerSideProps(context) {
-//   const { slug } = context.query;
-//   try {
-//     const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`);
-//     if (!res.ok) {
-//       throw new Error(`API request failed with status: ${res.status}`);
-//     }
-//     const data = await res.json();
-//     return { props: { data } };
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     return { props: { data: null } }; // Handle the error as needed
-//   }
-// }
 
 
 export default slug;

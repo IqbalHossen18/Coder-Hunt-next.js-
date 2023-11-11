@@ -150,6 +150,9 @@
   color:rgb(0, 0, 0);
   font-weight: bold;
 }
+.linktag:hover{
+  color:black;
+}
 
 
 #navbar .navbar-brand{
@@ -163,4 +166,15 @@
 }
 #navbar .active{
   border-bottom: 2px solid white;
+}
+
+.readmorelink{
+  color:black;
+  text-decoration: none;
+}
+.readmorelink:hover{
+  color:black;
+  cursor: pointer;
+  text-decoration: underline;
+ 
 }

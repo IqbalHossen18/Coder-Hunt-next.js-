@@ -19,10 +19,10 @@ const Navbar = () => {
                                 <Link className={`nav-link ${ pathname === '/' ? 'active':''}`} aria-current="page" href="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className={`nav-link ${ pathname === '/about' ? 'active':''}`} href="/about">About</Link>
+                                <Link className={`nav-link ${ pathname === '/blog' ? 'active':''}`} href="/blog">Blogs</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className={`nav-link ${ pathname === '/blog' ? 'active':''}`} href="/blog">Blog</Link>
+                                <Link className={`nav-link ${ pathname === '/about' ? 'active':''}`} href="/about">About</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className={`nav-link ${ pathname === '/contact' ? 'active':''}`} href="/contact">Contact</Link>

@@ -1,6 +1,6 @@
 import React, { useState }  from 'react'
 import Link from 'next/link';
-import fs from 'fs';
+// import fs from 'fs';
 
 const Blog = (props) => {
   const [blogs, setblogs] = useState(props.allblogs)
@@ -35,22 +35,13 @@ const Blog = (props) => {
   )
 }
 
+ //api call for blogs by SSG(ServerSideRenderaing)
 
-export async function getStaticProps(context) {
-  let data = await fs.promises.readdir('blogdata');
-      // console.log(data)
-      let myfile;
-      let allblogs = [];
-      for(let i = 0; i< data.length; i++){
-        const item = data[i];
-        // console.log(item)
-        myfile = await fs.promises.readFile(('blogdata/' +item), 'utf-8');
-        // console.log( typeof myfile)
+export async function getServerSideProps(context) {
+  let data = await fetch('http://localhost:3000/api/blogs');
+  let allblogs = await data.json()
 
-        allblogs.push(JSON.parse(myfile))
-      }
   return { props: { allblogs } };
-
 }
 
 
