@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
-const slug = (props) => {
+const Slug = (props) => {
 
-  const {data} = props;
+  const [blog, setblog] = useState(props.data)
 
   return (
     <>
@@ -60,13 +60,13 @@ const slug = (props) => {
         }
       </style>
       <div className='blogpost'>
-        <div className='slug-container'>
+      <div className='slug-container'>
           <div className='slug-img'>
-            <img src={`/../${data && data.img}.jpg`} alt='image' className='postimg' />
+            <img src={`/../${blog.img}.jpg`} alt='image' className='postimg' />
           </div>
           <div className='slug-text'>
-            <h2>{data && data.title}</h2>
-            <p>{data && data.content}</p>
+            <h2>{blog.title}</h2>
+            <p>{blog.content}</p>
           </div>
         </div>
       </div>
@@ -78,15 +78,11 @@ const slug = (props) => {
 
 export async function getServerSideProps(context){
     const { slug } = context.query;
-    try {
       const res = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
       const data = await res.json() 
       return { props: { data } };
-    } catch (error) {
-      console.log(error.message)
-    }
    
 }
 
 
-export default slug;
+export default Slug;

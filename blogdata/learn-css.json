@@ -1,0 +1,9 @@
+
+{
+    "title": "CSS",
+    "content": "CSS is a lightweight and user-friendly web framework for Python, designed to simplify web application development. It offers a minimalistic approach, allowing developers to have more control and flexibility in building web applications. With its easy-to-use routing system, built-in template engine (Jinja2), and a wide range of extensions, Flask is well-suited for creating web applications and RESTful APIs. Its modular design philosophy encourages organization and scalability while also supporting URL building and serving as a solid foundation for smaller to medium-sized projects. Flask's active community and extensive documentation make it an excellent choice for beginners and experienced developers looking for a straightforward and customizable solution for web development in Python.",
+    "author": "Harry vai",
+    "slug": "learn-css",
+    "img": "img-3"
+}
+

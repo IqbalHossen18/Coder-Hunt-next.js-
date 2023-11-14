@@ -178,3 +178,8 @@
   text-decoration: underline;
  
 }
+
+#infinitelink:hover{
+  text-decoration: underline;
+  color:rgb(0, 30, 255);
+}

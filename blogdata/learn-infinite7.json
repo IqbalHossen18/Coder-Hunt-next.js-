@@ -1,0 +1,7 @@
+{
+    "title": "learn-infinite7",
+    "content": "Certainly, Next.js is an open-source JavaScript framework, a product of Vercel, designed to facilitate the development of modern web applications. It builds on the popular React library and is known for its developer-friendly features and efficient performance. With Next.js, you can easily create server-rendered React applications, harnessing server-side rendering (SSR), static site generation (SSG), and automatic code splitting to enhance the user experience. It simplifies routing with an intuitive file-based approach, optimizes performance by splitting JavaScript bundles, and provides a variety of tools for efficient and SEO-friendly web development. Next.js is highly versatile and has gained widespread adoption for various use cases, from building e-commerce sites and blogs to complex web applications, due to its robust feature set and strong community support.",
+    "author": "Harry vai",
+    "slug": "learn-infinite7",
+    "img": "img-3"
+}

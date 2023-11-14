@@ -35,10 +35,10 @@ export default function Home(props) {
 
 
 export async function getServerSideProps(context) {
-    const data = await fetch('http://localhost:3000/api/blogs');
+    const data = await fetch('http://localhost:3000/api/blogs/?count=5');
     const allblogs = await data.json()
    
-      const homeblog = allblogs.slice(0 , 3)
-  return {props: { allblogs: homeblog }};
+      // const homeblog = allblogs.slice(0 , 3)
+  return {props: { allblogs }};
 
 }
