@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const about = () => {
+const About = () => {
   return (
     <>
       <div className='container p-5'>
@@ -53,4 +53,4 @@ const about = () => {
   )
 }
 
-export default about
+export default About

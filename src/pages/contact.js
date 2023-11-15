@@ -2,7 +2,7 @@ import React , { useEffect, useState} from 'react'
 import stylse from '@/styles/contact.module.css';
 import { useRouter } from 'next/router';
 
-const contact = () => {
+const Contact = () => {
     let router = useRouter();
     const [contact, setcontact] = useState({name:'', email:'', phone:'',message:''})
     const [isvalid, setisvalid] = useState(false)
@@ -81,7 +81,7 @@ const contact = () => {
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email address</label>
             <input type="email" className="form-control" id="email" name='email' value={contact.email}  aria-describedby="emailHelp" onChange={handlechange} required  />
-            <div id="emailhelp" className="form-text text-white">We'll never share your email with anyone else.</div>
+            <div id="emailhelp" className="form-text text-white">We will never share your email with anyone else.</div>
           </div>
           <div className="mb-3">
             <label htmlFor="phone" className="form-label">Phone</label>
@@ -98,4 +98,4 @@ const contact = () => {
   )
 }
 
-export default contact
+export default Contact

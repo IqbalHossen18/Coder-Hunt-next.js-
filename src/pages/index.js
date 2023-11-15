@@ -14,8 +14,8 @@ export default function Home(props) {
           </div>
         </div>
         <div className="blog-container">
-          {blogs.map((blogpost) => {
-            return <Link href={`blogpost/${blogpost.slug}`} className="blog-item linktag" key={blogpost.slug}>
+          {blogs.map((blogpost, index) => {
+            return <Link href={`blogpost/${blogpost.slug}`} className="blog-item linktag" key={index}>
               <div className="blog-img">
                 <img src={`/${blogpost.img}.jpg`} alt="img" className='imgtag' />
               </div>
